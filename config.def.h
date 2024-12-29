@@ -14,19 +14,21 @@ static int gaps                            = 1;  /* 1 means gaps between windows
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const int vertpad                   = 10; /* vertical padding of bar */
 static const int sidepad                   = 10; /* horizontal padding of bar */
-static const char *fonts[]                 = {"monospace:size=12"};
+static const char *fonts[]                 = {"Hack:size=14"};
 static const float rootcolor[]             = COLOR(0x000000ff);
-/* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
+/* Fullscreen background (Nord Color) */
+static const float fullscreen_bg[]         = { 0.16f, 0.20f, 0.24f, 1.0f }; /* Nord0 with slight transparency */
+/* Color Scheme */
 static uint32_t colors[][3]                = {
-	/*               fg          bg          border    */
-	[SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },
-	[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
-	[SchemeUrg]  = { 0,          0,          0x770000ff },
+    /*               fg          bg          border    */
+    [SchemeNorm] = { 0xffffffff, 0x2e3440ff, 0x3b4252ff },  /* Light gray foreground, Nord0 background, Nord1 border */
+    [SchemeSel]  = { 0xa3be8cff, 0x2e3440ff, 0x5e81acff },  /* Light blue foreground, Dark blue background, Dark blue border */
+    [SchemeUrg]  = { 0x2e3440ff, 0xbf616aff, 0xbf616aff },  /* Dark background, Red foreground, Red border */
 };
-static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
-static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
-static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+
+static const char *upvol[] = { "/usr/bin/pamixer", "-i", "10", "--set-limit", "120", NULL };
+static const char *downvol[] = { "/usr/bin/pamixer", "-d", "10", "--set-limit", "120", NULL };
+static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
 static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
 static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 
@@ -39,9 +41,13 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "swaybg", "-i","/home/zulubit/icede/wallpaper/bg.jpg", "-m","fill", NULL,
+        "swaybg", "-i", "/home/zulubit/icede/wallpaper/bg.jpg", "-m", "fill", NULL,
+        "pipewire", NULL,
+        "wireplumber", NULL,
+        "mako", NULL,
         NULL /* terminate */
 };
+
 
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
