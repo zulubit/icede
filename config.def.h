@@ -14,7 +14,7 @@ static int gaps                            = 1;  /* 1 means gaps between windows
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const int vertpad                   = 10; /* vertical padding of bar */
 static const int sidepad                   = 10; /* horizontal padding of bar */
-static const char *fonts[]                 = {"monospace:size=10"};
+static const char *fonts[]                 = {"monospace:size=12"};
 static const float rootcolor[]             = COLOR(0x000000ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
@@ -26,10 +26,17 @@ static uint32_t colors[][3]                = {
 };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
-static char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static char *tags[] = { "1", "2", "3", "4", "5"};
 
 /* logging */
 static int log_level = WLR_ERROR;
+
+/* Autostart */
+static const char *const autostart[] = {
+        "swaybg", "-i","/home/zulubit/icede/wallpaper/bg.jpg", "-m","fill", NULL,
+        NULL /* terminate */
+};
+
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
@@ -130,14 +137,14 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] = { "foot", NULL };
+static const char *termcmd[] = { "kitty", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     spawn,          {.v = termcmd} },
+	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
@@ -148,7 +155,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_Return,     zoom,           {0} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
 	{ MODKEY,                    XKB_KEY_g,          togglegaps,     {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          killclient,     {0} },
+	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
@@ -170,7 +177,7 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },

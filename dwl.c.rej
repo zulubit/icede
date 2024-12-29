@@ -1,9 +1,17 @@
 diff a/dwl.c b/dwl.c	(rejected hunks)
-@@ -336,6 +337,7 @@ static void tagmon(const Arg *arg);
- static void tile(Monitor *m);
- static void togglefloating(const Arg *arg);
- static void togglefullscreen(const Arg *arg);
-+static void togglegaps(const Arg *arg);
- static void toggletag(const Arg *arg);
- static void toggleview(const Arg *arg);
- static void unlocksession(struct wl_listener *listener, void *data);
+@@ -249,6 +249,7 @@ static void arrange(Monitor *m);
+ static void arrangelayer(Monitor *m, struct wl_list *list,
+ 		struct wlr_box *usable_area, int exclusive);
+ static void arrangelayers(Monitor *m);
++static void autostartexec(void);
+ static void axisnotify(struct wl_listener *listener, void *data);
+ static void buttonpress(struct wl_listener *listener, void *data);
+ static void chvt(const Arg *arg);
+@@ -2224,6 +2272,7 @@ run(char *startup_cmd)
+ 		die("startup: backend_start");
+ 
+ 	/* Now that the socket exists and the backend is started, run the startup command */
++	autostartexec();
+ 	if (startup_cmd) {
+ 		int piperw[2];
+ 		if (pipe(piperw) < 0)
