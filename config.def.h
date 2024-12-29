@@ -24,6 +24,12 @@ static uint32_t colors[][3]                = {
 	[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
 	[SchemeUrg]  = { 0,          0,          0x770000ff },
 };
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
+static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
+
 
 /* tagging - TAGCOUNT must be no greater than 31 */
 static char *tags[] = { "1", "2", "3", "4", "5"};
@@ -141,6 +147,11 @@ static const char *termcmd[] = { "kitty", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
 
 static const Key keys[] = {
+    {0, XKB_KEY_XF86AudioLowerVolume, spawn, {.v = downvol}},    // Use XKB_KEY_XF86AudioLowerVolume
+    {0, XKB_KEY_XF86AudioMute, spawn, {.v = mutevol}},            // Use XKB_KEY_XF86AudioMute
+    {0, XKB_KEY_XF86AudioRaiseVolume, spawn, {.v = upvol}},       // Use XKB_KEY_XF86AudioRaiseVolume
+    {0, XKB_KEY_XF86MonBrightnessUp, spawn, {.v = light_up}},     // Use XKB_KEY_XF86MonBrightnessUp
+    {0, XKB_KEY_XF86MonBrightnessDown, spawn, {.v = light_down}}, // Use XKB_KEY_XF86MonBrightnessDown
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
