@@ -45,12 +45,20 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "swaybg", "-i", HOME_DIR "/icede/wallpaper/bg2.jpg", "-m", "fill", NULL,
-        "pipewire", NULL,
-        "wireplumber", NULL,
-        "mako", NULL,
-        NULL /* terminate */
+    "swaybg", "-i", HOME_DIR "/icede/wallpaper/bg2.jpg", "-m", "fill", NULL,
+    "pipewire", NULL,
+    "wireplumber", NULL,
+    "mako",
+    "--background-color", "#2e3440",      // Nord 0 (dark background)
+    "--text-color", "#d8dee9",            // Nord 4 (light text)
+    "--border-color", "#3b4252",          // Nord 1 (dark border)
+    "--border-size", "2",                 // Optional border size
+    "--font", "Hack Nerd Font Mono 12",   // Set font to Noto Sans (or another font of your choice)
+    "--icons", "1",                       // Enable icons
+    "--max-icon-size", "64",              // Max icon size in px
+    NULL /* terminate */
 };
+
 
 
 
@@ -154,21 +162,14 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] = { "foot", "-c", HOME_DIR "/icede/foot.ini", NULL };
-static const char *menucmd[] = {
-    "wmenu-run",
-    "-b",                 // Display at the bottom of the screen
-    "-i",                 // Case-insensitive matching
-    "-p", "Run: ",        // Prompt text "Run: "
-    "-f", "Nerd 14",      // Use the "Nerd" font at size 14
-    "-N", "2E3440",       // Normal background color (Nord 0)
-    "-n", "D8DEE9",       // Normal foreground color (Nord 3)
-    "-M", "3B4252",       // Prompt background color (Nord 1)
-    "-m", "ECEFF4",       // Prompt foreground color (Nord 5)
-    "-S", "81A1C1",       // Selection background color (Nord 7)
-    "-s", "2E3440",       // Selection foreground color (Nord 0)
+static const char *menucmd[] = { "fuzzel", "--config", HOME_DIR "/icede/fuzzel.ini", NULL };
+static const char *swaylockcmd[] = {
+    "swaylock",
+    "--color", "2e3440f8",        /* Background color with transparency (f8 = 97% opaque) */
+    "--ring-color", "5e81ac",     /* Ring color (Light blue) */
+    "--text-color", "ffffff",     /* Text color (White) */
     NULL
 };
-
 
 static const Key keys[] = {
     {0, XKB_KEY_XF86AudioLowerVolume, spawn, {.v = downvol}},    // Use XKB_KEY_XF86AudioLowerVolume
@@ -180,6 +181,7 @@ static const Key keys[] = {
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_L,          spawn,          {.v = swaylockcmd} },
 	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },

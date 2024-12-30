@@ -12,3 +12,4 @@ blueman-manager: Manage Bluetooth (menu)
 
 pavucontrol: Manage audio (menu)
 
+loginctl hibernate/reboot/poweroff: Manage machine state (TERMINAL ONLY)

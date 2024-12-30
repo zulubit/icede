@@ -64,6 +64,10 @@ xdg-desktop-portal-wlr
 sudo make HOME_DIR=$(echo ~) install
 ```
 
+## After Install
+
+make sure to check all the drivers and power options if the device is a laptop
+
 ## DWL
 
 For more information, you should visit [dwl](https://codeberg.org/dwl/dwl).

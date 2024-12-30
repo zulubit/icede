@@ -15,6 +15,8 @@ export SDL_VIDEODRIVER=wayland
 export QT_QPA_PLATFORM=wayland-egl
 export XDG_SESSION_TYPE=xwayland
 
+light -S 50
+
 # Start the status bar
 ~/icede/bar.sh |
 
