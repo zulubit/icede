@@ -7,7 +7,7 @@ error_exit() {
 }
 
 # Install all the packages
-sudo xbps-install -y NetworkManager Thunar base-devel base-system blueman curl dunst elogind fcft void-repo-nonfree fcft-devel firefox foot gcc git libxml2-devel light make mesa-dri pamixer pavucontrol pipewire pulseaudio qt5-wayland qt6-wayland sof-firmware sof-tools swaybg wget wl-clipboard wlroots-devel wlroots0.18 wlroots0.18-devel wmenu dejavu-fonts-ttf xorg-server-xwayland || error_exit "Package installation failed."
+sudo xbps-install -y NetworkManager Thunar base-devel base-system blueman curl mako elogind fcft void-repo-nonfree fcft-devel firefox foot gcc git libxml2-devel xdg-desktop-portal-wlr xdg-desktop-portal-gtk light make mesa-dri pamixer pavucontrol pipewire pulseaudio qt5-wayland qt6-wayland sof-firmware sof-tools swaybg wget wl-clipboard wlroots-devel wlroots0.18 wlroots0.18-devel wmenu dejavu-fonts-ttf xorg-server-xwayland || error_exit "Package installation failed."
 
 # Remove the wpa_supplicant symlink
 sudo rm -f /var/service/wpa_supplicant || error_exit "Failed to remove wpa_supplicant symlink."

@@ -25,6 +25,7 @@
 - **qt5-wayland** - Qt5 bindings for Wayland
 - **qt6-wayland** - Qt6 bindings for Wayland
 - **wl-clipboard** - Clipboard utilities for Wayland
+xdg-desktop-portal-wlr
 
 ### Fonts
 - **dejavu-fonts-ttf** - DejaVu TrueType fonts for general use
@@ -34,7 +35,7 @@
 - **wget** - Command-line utility for downloading files from the web
 - **git** - Version control system
 - **make** - Build automation tool
-- **dunst** - Lightweight notification daemon
+- **mako** - Lightweight notification daemon
 - **light** - Simple and lightweight backlight control
 - **foot** - Lightweight Wayland terminal
 
