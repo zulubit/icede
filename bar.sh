@@ -56,7 +56,7 @@ while true; do
 ^bg($NORD2) ^fg($NORD1)$ICON_MEM ^bg() ^fg($NORD1)$MEM_USAGE \
 ^bg($NORD2) ^fg($NORD1)$NET_STATUS_ICON ^bg() ^fg($NORD1)$NET_STATUS \
 ^bg($NORD2) ^fg($NORD1)$VOLUME_ICON ^bg() ^fg($NORD1)$VOLUME_STATUS \
-^bg($NORD2) ^fg($NORD1)$ICON_TIME ^bg() ^fg($NORD1)$TIME"
+^bg($NORD2) ^fg($NORD1)$ICON_TIME ^bg() ^fg($NORD1)$TIME " 
 
     # Update every second
     sleep 1
