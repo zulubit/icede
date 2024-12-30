@@ -1,3 +1,9 @@
+# IceDE - dwl fork by Zulubit
+
+```bash
+sudo make HOME_DIR=$(echo ~) install
+```
+
 # dwl - dwm for Wayland
 
 Join us on our IRC channel: [#dwl on Libera Chat]  

@@ -3,9 +3,12 @@
 
 include config.mk
 
+# Automatically set HOME_DIR based on the current user
+HOME_DIR ?= /home/$(USER)
+
 # flags for compiling
 DWLCPPFLAGS = -I. -DWLR_USE_UNSTABLE -D_POSIX_C_SOURCE=200809L \
-	-DVERSION=\"$(VERSION)\" $(XWAYLAND)
+	-DVERSION=\"$(VERSION)\" $(XWAYLAND) -DHOME_DIR=\"$(HOME_DIR)\"
 DWLDEVCFLAGS = -g -pedantic -Wall -Wextra -Wdeclaration-after-statement \
 	-Wno-unused-parameter -I/usr/include/pixman-1 -Wshadow -Wunused-macros -Werror=strict-prototypes \
 	-Werror=implicit -Werror=return-type -Werror=incompatible-pointer-types \

@@ -1,3 +1,7 @@
+#ifndef HOME_DIR
+    #define HOME_DIR "/home/zulibit"  // Default fallback
+#endif
+
 /* Taken from https://github.com/djpohly/dwl/issues/466 */
 #define COLOR(hex)    { ((hex >> 24) & 0xFF) / 255.0f, \
                         ((hex >> 16) & 0xFF) / 255.0f, \
@@ -14,16 +18,16 @@ static int gaps                            = 1;  /* 1 means gaps between windows
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const int vertpad                   = 10; /* vertical padding of bar */
 static const int sidepad                   = 10; /* horizontal padding of bar */
-static const char *fonts[]                 = {"Hack:size=14"};
+static const char *fonts[]                 = {"Hack Nerd Font Mono:size=16"};
 static const float rootcolor[]             = COLOR(0x000000ff);
 /* Fullscreen background (Nord Color) */
 static const float fullscreen_bg[]         = { 0.16f, 0.20f, 0.24f, 1.0f }; /* Nord0 with slight transparency */
 /* Color Scheme */
-static uint32_t colors[][3]                = {
-    /*               fg          bg          border    */
-    [SchemeNorm] = { 0xffffffff, 0x2e3440ff, 0x3b4252ff },  /* Light gray foreground, Nord0 background, Nord1 border */
-    [SchemeSel]  = { 0xa3be8cff, 0x2e3440ff, 0x5e81acff },  /* Light blue foreground, Dark blue background, Dark blue border */
-    [SchemeUrg]  = { 0x2e3440ff, 0xbf616aff, 0xbf616aff },  /* Dark background, Red foreground, Red border */
+static uint32_t colors[][3] = {
+    /*               fg          bg              border    */
+    [SchemeNorm] = { 0x5e81acff, 0x3b4252d9, 0x3b4252ff },  /* Light gray foreground, Nord1 background with 70% opacity, Nord1 border */
+    [SchemeSel]  = { 0xffffffff, 0x3b4252d9, 0x5e81acff },  /* Light blue foreground, Nord1 background with 70% opacity, Dark blue border */
+    [SchemeUrg]  = { 0x2e3440ff, 0xbf616ad9, 0xbf616aff },  /* Dark background, Red foreground, Red border with 70% opacity */
 };
 
 static const char *upvol[] = { "/usr/bin/pamixer", "-i", "10", "--set-limit", "120", NULL };
@@ -34,14 +38,14 @@ static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 
 
 /* tagging - TAGCOUNT must be no greater than 31 */
-static char *tags[] = { "1", "2", "3", "4", "5"};
+static char *tags[] = { "󰻽", "", "", "󰈹", "󰭹"};
 
 /* logging */
 static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "swaybg", "-i", "/home/zulubit/icede/wallpaper/bg.jpg", "-m", "fill", NULL,
+        "swaybg", "-i", HOME_DIR "/icede/wallpaper/bg2.jpg", "-m", "fill", NULL,
         "pipewire", NULL,
         "wireplumber", NULL,
         "mako", NULL,
@@ -149,8 +153,22 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] = { "kitty", NULL };
-static const char *menucmd[] = { "wmenu-run", NULL };
+static const char *termcmd[] = { "foot", "-c", HOME_DIR "/icede/foot.ini", NULL };
+static const char *menucmd[] = {
+    "wmenu-run",
+    "-b",                 // Display at the bottom of the screen
+    "-i",                 // Case-insensitive matching
+    "-p", "Run: ",        // Prompt text "Run: "
+    "-f", "Nerd 14",      // Use the "Nerd" font at size 14
+    "-N", "2E3440",       // Normal background color (Nord 0)
+    "-n", "D8DEE9",       // Normal foreground color (Nord 3)
+    "-M", "3B4252",       // Prompt background color (Nord 1)
+    "-m", "ECEFF4",       // Prompt foreground color (Nord 5)
+    "-S", "81A1C1",       // Selection background color (Nord 7)
+    "-s", "2E3440",       // Selection foreground color (Nord 0)
+    NULL
+};
+
 
 static const Key keys[] = {
     {0, XKB_KEY_XF86AudioLowerVolume, spawn, {.v = downvol}},    // Use XKB_KEY_XF86AudioLowerVolume

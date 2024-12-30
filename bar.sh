@@ -1,25 +1,18 @@
 #!/bin/bash
 
-# Dracula Theme Colors
-BLACK="282A36"
-WHITE="F8F8F2"
-CYAN="8BE9FD"
-GREEN="50FA7B"
-RED="FF5555"
-YELLOW="F1FA8C"
-PINK="FF79C6"
-PURPLE="BD93F9"
-BLUE="6272A4"
+# Nord Theme Colors (using only foreground colors, no backgrounds)
+NORD1="d8dee9"  # Light color for foreground text (time, battery, etc.)
+NORD2="5e81ac"  # Red for all icons
 
 # Nerd Font Icons
-ICON_TIME="  "      # Time icon
-ICON_BATTERY=" "   # Battery icon
-ICON_CPU="  "       # CPU icon
-ICON_MEM="  "       # Memory icon
-ICON_NET_CONNECTED="  " # Wi-Fi connected icon
-ICON_NET_DISCONNECTED="X " # Wi-Fi disconnected icon
-ICON_VOLUME="  "     # Volume icon
-ICON_VOLUME_MUTED="  "  # Volume muted icon
+ICON_TIME="󱑃"      # Time icon
+ICON_BATTERY=""   # Battery icon
+ICON_CPU="󰘚"       # CPU icon
+ICON_MEM=""       # Memory icon
+ICON_NET_CONNECTED="" # Wi-Fi connected icon
+ICON_NET_DISCONNECTED="󱚼" # Wi-Fi disconnected icon
+ICON_VOLUME=""     # Volume icon
+ICON_VOLUME_MUTED=""  # Volume muted icon
 
 while true; do
     # Get the current time
@@ -57,8 +50,13 @@ while true; do
         VOLUME_STATUS="$VOLUME"
     fi
 
-    # Output with colored text and NerdFont icons
-    echo "^fg($CYAN)$ICON_TIME ^fg($WHITE)$TIME ^fg($GREEN) | ^fg($RED)$ICON_BATTERY ^fg($WHITE)$BATTERY% ^fg($YELLOW) | ^fg($PINK)$ICON_CPU ^fg($WHITE)$CPU_USAGE ^fg($CYAN) | ^fg($PURPLE)$ICON_MEM ^fg($WHITE)$MEM_USAGE ^fg($BLUE) | ^fg($CYAN)$NET_STATUS_ICON ^fg($WHITE)$NET_STATUS ^fg($CYAN) | ^fg($WHITE)$VOLUME_ICON ^fg($WHITE)$VOLUME_STATUS "
+    # Output with Nord color scheme (monochrome look, no background)
+    echo "^bg($NORD2) ^fg($NORD1)$ICON_BATTERY ^bg() ^fg($NORD1)$BATTERY% \
+^bg($NORD2) ^fg($NORD1)$ICON_CPU ^bg() ^fg($NORD1)$CPU_USAGE \
+^bg($NORD2) ^fg($NORD1)$ICON_MEM ^bg() ^fg($NORD1)$MEM_USAGE \
+^bg($NORD2) ^fg($NORD1)$NET_STATUS_ICON ^bg() ^fg($NORD1)$NET_STATUS \
+^bg($NORD2) ^fg($NORD1)$VOLUME_ICON ^bg() ^fg($NORD1)$VOLUME_STATUS \
+^bg($NORD2) ^fg($NORD1)$ICON_TIME ^bg() ^fg($NORD1)$TIME"
 
     # Update every second
     sleep 1
