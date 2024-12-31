@@ -15,7 +15,8 @@ ICON_VOLUME_MUTED=""  # Volume muted icon
 
 while true; do
     # Get the current time
-    TIME=$(date '+%Y-%m-%d %H:%M:%S')
+    # TIME=$(date '+%Y-%m-%d %H:%M:%S')
+    TIME=$(date '+%H:%M:%S')
 
     # Get battery status
     BATTERY=$(cat /sys/class/power_supply/BAT0/capacity)
