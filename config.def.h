@@ -36,7 +36,6 @@ static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
 static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
 static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 
-
 /* tagging - TAGCOUNT must be no greater than 31 */
 static char *tags[] = { "󰻽", "", "", "󰈹", "󰭹"};
 
@@ -58,9 +57,6 @@ static const char *const autostart[] = {
     "--max-icon-size", "64",              // Max icon size in px
     NULL /* terminate */
 };
-
-
-
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
@@ -170,6 +166,8 @@ static const char *swaylockcmd[] = {
     "--text-color", "ffffff",     /* Text color (White) */
     NULL
 };
+static const char *toggle_waybar[] = { "waybar", "-c", HOME_DIR "/icede/waybar/config", "-s", HOME_DIR "/icede/waybar/style.css", NULL };
+static const char *kill_waybar[] = { "pkill", "waybar", NULL };
 
 static const Key keys[] = {
     {0, XKB_KEY_XF86AudioLowerVolume, spawn, {.v = downvol}},    // Use XKB_KEY_XF86AudioLowerVolume
@@ -181,6 +179,8 @@ static const Key keys[] = {
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
+	{ MODKEY,                    XKB_KEY_o,     	 spawn,          {.v = toggle_waybar} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,     	 spawn,          {.v = kill_waybar} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_L,          spawn,          {.v = swaylockcmd} },
 	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },

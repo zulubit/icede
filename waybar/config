@@ -1,0 +1,23 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin-left": 8,
+  "margin-right": 8,
+  "modules-left": [
+    "custom/action1"
+  ],
+  "modules-right": [
+    "tray"
+  ],
+  "custom/action1": {
+    "exec": "echo ''",
+    "tooltip": "close",
+    "on-click": "pkill waybar",
+    "interval": 3600
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  }
+}
+

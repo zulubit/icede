@@ -1,0 +1,24 @@
+/* General bar styling */
+#waybar {
+  background: rgba(46, 52, 64, 0.5); /* Nord background with 50% opacity */
+  color: #d8dee9;                   /* Light text color (Nord theme) */
+  font-family: "Hack Nerd Font Mono", monospace;
+  font-size: 16px;
+  padding: 5px;
+}
+
+/* Left action buttons */
+#custom-action1,
+#custom-action2 {
+  margin-right: 15px; /* Space between buttons */
+}
+#custom-action1:hover,
+#custom-action2:hover {
+  color: #88c0d0;     /* Highlight color on hover */
+}
+
+/* Tray icons */
+#tray > widget {
+  margin-left: 10px; /* Space between tray icons */
+}
+

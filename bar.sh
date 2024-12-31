@@ -8,8 +8,6 @@ NORD3="bf616a"  # Red for background when muted, disconnected, or low battery
 # Nerd Font Icons
 ICON_TIME="󱑃"      # Time icon
 ICON_BATTERY=""   # Battery icon
-ICON_CPU="󰘚"       # CPU icon
-ICON_MEM=""       # Memory icon
 ICON_NET_CONNECTED="" # Wi-Fi connected icon
 ICON_NET_DISCONNECTED="󱚼" # Wi-Fi disconnected icon
 ICON_VOLUME=""     # Volume icon
@@ -28,12 +26,6 @@ while true; do
     else
         BATTERY_BG_COLOR=$NORD2  # Default background color for battery
     fi
-
-    # Get CPU usage
-    CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1 "%"}')
-
-    # Get memory usage
-    MEM_USAGE=$(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)  # Memory usage (in GB/MB)
 
     # Get network status using nmcli
     NETWORK_STATUS=$(nmcli -t -f DEVICE,TYPE,STATE dev status | grep 'wifi:connected')
@@ -64,8 +56,6 @@ while true; do
 
     # Output with Nord color scheme (monochrome look, no background)
     echo "^bg($BATTERY_BG_COLOR) ^fg($NORD1)$ICON_BATTERY ^bg() ^fg($NORD1)$BATTERY% \
-^bg($NORD2) ^fg($NORD1)$ICON_CPU ^bg() ^fg($NORD1)$CPU_USAGE \
-^bg($NORD2) ^fg($NORD1)$ICON_MEM ^bg() ^fg($NORD1)$MEM_USAGE \
 ^bg($VOLUME_BG_COLOR) ^fg($NORD1)$VOLUME_ICON ^bg() ^fg($NORD1)$VOLUME_STATUS \
 ^bg($NORD2) ^fg($NORD1)$ICON_TIME ^bg() ^fg($NORD1)$TIME \
 ^bg($NET_BG_COLOR) ^fg($NORD1)$NET_STATUS_ICON ^bg()"
