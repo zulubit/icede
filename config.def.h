@@ -30,13 +30,6 @@ static uint32_t colors[][3] = {
     [SchemeUrg]  = { 0x2e3440ff, 0xbf616ad9, 0xbf616aff },  /* Dark background, Red foreground, Red border with 70% opacity */
 };
 
-static const char *upvol[] = { "/usr/bin/pamixer", "-i", "10", "--set-limit", "120", NULL };
-static const char *downvol[] = { "/usr/bin/pamixer", "-d", "10", "--set-limit", "120", NULL };
-static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
-static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
-static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
-static const char *mutemic[] = { "/usr/bin/pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
-
 /* tagging - TAGCOUNT must be no greater than 31 */
 static char *tags[] = { "󰻽", "", "", "󰈹", "󰭹"};
 
@@ -169,6 +162,25 @@ static const char *swaylockcmd[] = {
 };
 static const char *toggle_waybar[] = { "waybar", "-c", HOME_DIR "/icede/waybar/config", "-s", HOME_DIR "/icede/waybar/style.css", NULL };
 static const char *kill_waybar[] = { "pkill", "waybar", NULL };
+static const char *upvol[] = { "/usr/bin/pamixer", "-i", "10", "--set-limit", "120", NULL };
+static const char *downvol[] = { "/usr/bin/pamixer", "-d", "10", "--set-limit", "120", NULL };
+static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
+static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
+static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
+static const char *mutemic[] = { "/usr/bin/pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
+/* For this to work ~/Pictures must exists */
+static const char *screenshotcmd[] = { 
+    "/bin/sh", "-c", 
+    "grim -g \"$(slurp)\" ~/Pictures/screenshot-$(date +%Y%m%d%H%M%S).png && swappy -f ~/Pictures/$(ls -Art ~/Pictures | tail -n 1) -o ~/Pictures/edited-$(date +%Y%m%d%H%M%S).png", 
+    NULL 
+};
+static const char *recordcmd[] = { 
+    "foot", "-e", 
+    "sh", "-c", 
+    "wf-recorder -g \"$(slurp)\" -f ~/Pictures/recording-$(date +%Y%m%d%H%M%S).mp4", 
+    NULL 
+};
+
 
 static const Key keys[] = {
     {0, XKB_KEY_XF86AudioLowerVolume, spawn, {.v = downvol}},    // Use XKB_KEY_XF86AudioLowerVolume
@@ -184,6 +196,8 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_o,     	 spawn,          {.v = toggle_waybar} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,     	 spawn,          {.v = kill_waybar} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_L,          spawn,          {.v = swaylockcmd} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,     	 spawn,          {.v = recordcmd} },
+	{ MODKEY,                    XKB_KEY_s,     	 spawn,          {.v = screenshotcmd} },
 	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },

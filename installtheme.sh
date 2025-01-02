@@ -34,5 +34,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fc-cache -fv
 fi
 
+cd
+
+mkdir -p Pictures
+
 echo "Hack folder moved to $FONT_DIR successfully!"
 
