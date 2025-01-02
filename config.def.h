@@ -171,9 +171,10 @@ static const char *mutemic[] = { "/usr/bin/pactl", "set-source-mute", "@DEFAULT_
 /* For this to work ~/Pictures must exists */
 static const char *screenshotcmd[] = { 
     "/bin/sh", "-c", 
-    "grim -g \"$(slurp)\" ~/Pictures/screenshot-$(date +%Y%m%d%H%M%S).png && swappy -f ~/Pictures/$(ls -Art ~/Pictures | tail -n 1) -o ~/Pictures/edited-$(date +%Y%m%d%H%M%S).png", 
+    "mkdir -p ~/Pictures && grim -g \"$(slurp)\" - | swappy -f - -o ~/Pictures/edited-$(date +%Y%m%d%H%M%S).png", 
     NULL 
 };
+
 static const char *recordcmd[] = { 
     "foot", "-e", 
     "sh", "-c", 
