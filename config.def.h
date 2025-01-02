@@ -35,6 +35,7 @@ static const char *downvol[] = { "/usr/bin/pamixer", "-d", "10", "--set-limit", 
 static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
 static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
 static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
+static const char *mutemic[] = { "/usr/bin/pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
 static char *tags[] = { "󰻽", "", "", "󰈹", "󰭹"};
@@ -175,6 +176,7 @@ static const Key keys[] = {
     {0, XKB_KEY_XF86AudioRaiseVolume, spawn, {.v = upvol}},       // Use XKB_KEY_XF86AudioRaiseVolume
     {0, XKB_KEY_XF86MonBrightnessUp, spawn, {.v = light_up}},     // Use XKB_KEY_XF86MonBrightnessUp
     {0, XKB_KEY_XF86MonBrightnessDown, spawn, {.v = light_down}}, // Use XKB_KEY_XF86MonBrightnessDown
+    {0, XKB_KEY_XF86AudioMicMute, spawn, {.v = mutemic}},           // Use XKB_KEY_XF86AudioMicMute
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },

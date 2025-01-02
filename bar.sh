@@ -64,4 +64,3 @@ while true; do
     # Update every second
     sleep 0.5
 done
-
