@@ -4,7 +4,9 @@
   "margin-left": 10,
   "margin-right": 10,
   "modules-left": [
-    "custom/action1"
+    "custom/action1",
+    "custom/action2",
+    "custom/action3"
   ],
   "modules-right": [
     "tray"
@@ -13,6 +15,18 @@
     "exec": "echo ''",
     "tooltip": "close",
     "on-click": "pkill waybar",
+    "interval": 3600
+  },
+  "custom/action2": {
+    "exec": "echo 'Manage wifi'",
+    "tooltip": "wifi",
+    "on-click": "foot -c ~/icede/foot.ini -e sh -c nmtui",
+    "interval": 3600
+  },
+  "custom/action3": {
+    "exec": "echo suspend",
+    "tooltip": "suspend",
+    "on-click": "loginctl suspend",
     "interval": 3600
   },
   "tray": {

@@ -9,11 +9,19 @@
 
 /* Left action buttons */
 #custom-action1,
-#custom-action2 {
+#custom-action2, 
+#custom-action3, 
+#custom-action4, 
+#custom-action5,
+#custom-action6 {
   margin-right: 15px; /* Space between buttons */
 }
 #custom-action1:hover,
-#custom-action2:hover {
+#custom-action2:hover, 
+#custom-action3:hover,
+#custom-action4:hover,
+#custom-action5:hover,
+#custom-action6:hover{
   color: #88c0d0;     /* Highlight color on hover */
 }
 
