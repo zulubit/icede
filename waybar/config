@@ -1,7 +1,8 @@
 {
   "layer": "top",
-  "position": "top",
+  "position": "bottom",
   "margin-left": 10,
+  "margin-bottom": 10,
   "margin-right": 10,
   "modules-left": [
     "custom/action1",

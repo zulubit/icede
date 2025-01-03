@@ -159,8 +159,7 @@ static const char *swaylockcmd[] = {
     "--text-color", "ffffff",     /* Text color (White) */
     NULL
 };
-static const char *toggle_waybar[] = { "waybar", "-c", HOME_DIR "/icede/waybar/config", "-s", HOME_DIR "/icede/waybar/style.css", NULL };
-static const char *kill_waybar[] = { "pkill", "waybar", NULL };
+static const char *toggle_waybar[] = {"/bin/sh", "-c", "pkill waybar || waybar -c " HOME_DIR "/icede/waybar/config -s " HOME_DIR "/icede/waybar/style.css", NULL };
 static const char *upvol[] = { "/usr/bin/pamixer", "-i", "10", "--set-limit", "120", NULL };
 static const char *downvol[] = { "/usr/bin/pamixer", "-d", "10", "--set-limit", "120", NULL };
 static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
@@ -194,7 +193,6 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_o,     	 spawn,          {.v = toggle_waybar} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,     	 spawn,          {.v = kill_waybar} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_L,          spawn,          {.v = swaylockcmd} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,     	 spawn,          {.v = recordcmd} },
 	{ MODKEY,                    XKB_KEY_s,     	 spawn,          {.v = screenshotcmd} },
