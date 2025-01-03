@@ -1,17 +1,15 @@
 diff a/dwl.c b/dwl.c	(rejected hunks)
-@@ -249,6 +249,7 @@ static void arrange(Monitor *m);
- static void arrangelayer(Monitor *m, struct wl_list *list,
- 		struct wlr_box *usable_area, int exclusive);
- static void arrangelayers(Monitor *m);
-+static void autostartexec(void);
- static void axisnotify(struct wl_listener *listener, void *data);
- static void buttonpress(struct wl_listener *listener, void *data);
- static void chvt(const Arg *arg);
-@@ -2224,6 +2272,7 @@ run(char *startup_cmd)
- 		die("startup: backend_start");
+@@ -2668,9 +2668,12 @@ snail(Monitor *m)
+ 			n++;
+ 	if (n == 0)
+ 		return;
++  if (smartgaps == n)
++		e = 0;
++	egappx = e * gappx;
  
- 	/* Now that the socket exists and the backend is started, run the startup command */
-+	autostartexec();
- 	if (startup_cmd) {
- 		int piperw[2];
- 		if (pipe(piperw) < 0)
+ 	if (n > m->nmaster)
+-		mw = m->nmaster ? ROUND(m->w.width * m->mfact) : 0;
++		mw = m->nmaster ? (unsigned int)round((m->w.width + egappx) * m->mfact) : 0;
+ 
+ 	wl_list_for_each(c, &clients, link) {
+ 		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)

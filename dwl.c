@@ -279,7 +279,7 @@ static void axisnotify(struct wl_listener *listener, void *data);
 static bool baracceptsinput(struct wlr_scene_buffer *buffer, double *sx, double *sy);
 static void bufdestroy(struct wlr_buffer *buffer);
 static bool bufdatabegin(struct wlr_buffer *buffer, uint32_t flags,
-		void **data, uint32_t *format, size_t *stride);
+void **data, uint32_t *format, size_t *stride);
 static void bufdataend(struct wlr_buffer *buffer);
 static Buffer *bufmon(Monitor *m);
 static void bufrelease(struct wl_listener *listener, void *data);
@@ -368,6 +368,7 @@ static void setmon(Client *c, Monitor *m, uint32_t newtags);
 static void setpsel(struct wl_listener *listener, void *data);
 static void setsel(struct wl_listener *listener, void *data);
 static void setup(void);
+static void snail(Monitor *m);
 static void spawn(const Arg *arg);
 static void startdrag(struct wl_listener *listener, void *data);
 static int statusin(int fd, unsigned int mask, void *data);
@@ -2985,6 +2986,120 @@ setup(void)
 		fprintf(stderr, "failed to setup XWayland X server, continuing without it\n");
 	}
 #endif
+}
+
+void
+snail(Monitor *m)
+{
+	int i = 0, n = 0;
+	unsigned int mw = m->w.width, e = m->gaps, w = 0, h = 0, egappx = 0;
+	Client *c, *prev = NULL;
+	enum wlr_direction dir = WLR_DIRECTION_RIGHT;
+
+	wl_list_for_each(c, &clients, link)
+		if (VISIBLEON(c, m) && !c->isfloating && !c->isfullscreen)
+			n++;
+	if (n == 0)
+		return;
+        if (smartgaps == n)
+		e = 0;
+	egappx = e * gappx;
+
+	if (n > m->nmaster)
+		mw = m->nmaster ? (unsigned int)round((m->w.width + egappx) * m->mfact) : 0;
+
+	wl_list_for_each(c, &clients, link) {
+		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
+			continue;
+
+		/*
+		 * If the master area exists and this is the first window, fill the
+		 * master area with this window
+		 */
+		if (mw > 0 && i == 0) {
+			c->geom = (struct wlr_box){.x = m->w.x + egappx, .y = m->w.y + egappx,
+				.width = mw - 2*egappx, .height = m->w.height - 2*egappx};
+			/*
+			 * If the first window in the master area is wide, split it
+			 * horizontally and put next one on its right; otherwise, split it
+			 * vertically and put the next one below it
+			 */
+			dir = c->geom.width > m->w.height ? WLR_DIRECTION_RIGHT : WLR_DIRECTION_DOWN;
+		/*
+		 * If the master area is full or doesn't exist, fill the stack with the
+		 * m->nmaster-th window
+		 */
+		} else if (i == m->nmaster) {
+			c->geom = (struct wlr_box){.x = m->w.x + mw + egappx, .y = m->w.y + egappx,
+				.width = m->w.width - mw - 2*egappx, .height = m->w.height - 2*egappx};
+			/*
+			 * If the first window in the stack is wide, split it horizontally
+			 * and put next one on its right; otherwise, split it vertically and
+			 * put the next one below it
+			 */
+			dir = c->geom.width > m->w.height ? WLR_DIRECTION_RIGHT : WLR_DIRECTION_DOWN;
+		} else if (prev) {
+			/*
+			 * Split the previous horizontally and put the current window on the right
+			 */
+			if (dir == WLR_DIRECTION_RIGHT) {
+				w = prev->geom.width / 2 - egappx;
+				h = prev->geom.height;
+				c->geom = (struct wlr_box){.x = prev->geom.x + prev->geom.width / 2 + egappx, .y = prev->geom.y,
+					.width = w, .height = h};
+				prev->geom = (struct wlr_box){.x = prev->geom.x, .y = prev->geom.y,
+					.width = w, .height = h};
+				/*
+				 * If it's a stack window or the first narrow window in the master
+				 * area, put the next one below it
+				 */
+				if (i >= m->nmaster || c->geom.width < m->w.height)
+					dir = WLR_DIRECTION_DOWN;
+			/*
+			 * Split the previous vertically and put the current window below it
+			 */
+			} else if (dir == WLR_DIRECTION_DOWN) {
+				w = prev->geom.width;
+				h = prev->geom.height / 2 - egappx;
+				c->geom = (struct wlr_box){.x = prev->geom.x, .y = prev->geom.y + prev->geom.height / 2 + egappx,
+					.width = w, .height = h};
+				prev->geom = (struct wlr_box){.x = prev->geom.x, .y = prev->geom.y,
+					.width = w, .height = h};
+				dir = WLR_DIRECTION_LEFT;
+			/*
+			 * Split the previous horizontally and put the current window on the left
+			 */
+			} else if (dir == WLR_DIRECTION_LEFT) {
+				w = prev->geom.width / 2 - egappx;
+				h = prev->geom.height;
+				c->geom = (struct wlr_box){.x = prev->geom.x, .y = prev->geom.y,
+					.width = w, .height = h};
+				prev->geom = (struct wlr_box){.x = prev->geom.x + prev->geom.width / 2 + egappx, .y = prev->geom.y,
+					.width = w, .height = h};
+				dir = WLR_DIRECTION_UP;
+			/*
+			 * Split the previous vertically and put the current window above it
+			 */
+			} else {
+				w = prev->geom.width;
+				h = prev->geom.height / 2 - egappx;
+				c->geom = (struct wlr_box){.x = prev->geom.x, .y = prev->geom.y,
+					.width = w, .height = h};
+				prev->geom = (struct wlr_box){.x = prev->geom.x, .y = prev->geom.y + prev->geom.height / 2 + egappx,
+					.width = w, .height = h};
+				dir = WLR_DIRECTION_RIGHT;
+			}
+		}
+		i++;
+		prev = c;
+	}
+
+	wl_list_for_each(c, &clients, link) {
+		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
+			continue;
+
+		resize(c, c->geom, 0);
+	}
 }
 
 void
