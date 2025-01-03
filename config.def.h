@@ -56,7 +56,6 @@ static const char *const autostart[] = {
 static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
 	/* examples: */
-	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1 }, /* Start on currently visible tags floating, not tiled */
 	{ "firefox_EXAMPLE",  NULL,       1 << 8,       0,           -1 }, /* Start on ONLY tag "9" */
 };
 
@@ -65,7 +64,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-/*	{ "[M]",      monocle }, */
+	{ "[M]",      monocle }, 
 };
 
 /* monitors */
@@ -212,7 +211,8 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
-	/* { MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} }, */
+	/* Below the layout should be set to 3 if we want monocle */
+	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
 	{ MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
