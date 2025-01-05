@@ -36,6 +36,12 @@ chmod +x installtheme.sh || error_exit "Failed to make installtheme.sh executabl
 
 echo "alias ice='cat ~/icede/USEFUL.md'" >> ~/.bashrc || error_exit "Failed to add alias to .bashrc."
 
+# Add TTY1 auto-run configuration
+AUTO_RUN_CHECK='if [ "$(tty)" = "/dev/tty1" ]; then\n    ~/icede/start.sh\nfi'
+if ! grep -Fq "$AUTO_RUN_CHECK" ~/.bash_profile; then
+    echo -e "\n# Auto-run ~/icede/start.sh on TTY1\n$AUTO_RUN_CHECK" >> ~/.bash_profile || error_exit "Failed to set up TTY1 auto-run."
+fi
+
 # Completion message
 echo "You should 'sudo reboot' your system, then you can use './icede/start' after logging back in. you can start a terminal using windows_log + return when in a session and run 'ice' to get some usefull info. Your network connection is disabled, use 'nmtui' in the terminal to reconnect"
 
