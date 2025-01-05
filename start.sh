@@ -15,6 +15,10 @@ export SDL_VIDEODRIVER=wayland
 export QT_QPA_PLATFORM=wayland-egl
 export XDG_SESSION_TYPE=xwayland
 
+# Add Flatpak executables to the PATH for wmenu to detect
+# These are the directories where Flatpak apps are installed
+export PATH="$PATH:$HOME/.local/bin:/var/lib/flatpak/exports/bin"
+
 # Set light brightness to 50%
 light -S 50
 

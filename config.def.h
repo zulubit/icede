@@ -23,12 +23,14 @@ static const float rootcolor[]             = COLOR(0x000000ff);
 /* Fullscreen background (Nord Color) */
 static const float fullscreen_bg[]         = { 0.16f, 0.20f, 0.24f, 1.0f }; /* Nord0 with slight transparency */
 /* Color Scheme */
+
 static uint32_t colors[][3] = {
-    /*               fg          bg              border    */
-    [SchemeNorm] = { 0x5e81acff, 0x3b4252d9, 0x3b4252ff },  /* Light gray foreground, Nord1 background with 70% opacity, Nord1 border */
-    [SchemeSel]  = { 0xffffffff, 0x3b4252d9, 0x5e81acff },  /* Light blue foreground, Nord1 background with 70% opacity, Dark blue border */
-    [SchemeUrg]  = { 0x2e3440ff, 0xbf616ad9, 0xbf616aff },  /* Dark background, Red foreground, Red border with 70% opacity */
+    /*               fg            bg              border    */
+    [SchemeNorm] = { 0x5e81acff, 0x3b4252f2, 0x3b4252f2 },  /* Light gray foreground, Nord1 background with 95% opacity, Nord1 border with 95% opacity */
+    [SchemeSel]  = { 0xffffffff, 0x3b4252f2, 0x5e81acff },  /* White foreground, Nord1 background with 95% opacity, Light blue border */
+    [SchemeUrg]  = { 0x2e3440ff, 0xbf616af2, 0xbf616af2 },  /* Dark background, Red foreground, Red border with 95% opacity */
 };
+
 
 /* tagging - TAGCOUNT must be no greater than 31 */
 static char *tags[] = { "󰻽", "", "󰈹", "", "󰭹"};
