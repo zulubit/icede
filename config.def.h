@@ -52,7 +52,7 @@ static const char *const autostart[] = {
     NULL /* terminate */,
     
     // Start the Polkit authentication agent
-    "/usr/libexec/polkit-mate-authentication-agent-1", NULL, // Polkit agent
+    "/bin/sh", "-c", "lxpolkit", NULL, // Polkit agent
     
     NULL /* terminate */
 };
