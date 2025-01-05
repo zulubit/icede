@@ -49,8 +49,14 @@ static const char *const autostart[] = {
     "--font", "Hack Nerd Font Mono 12",   // Set font to Noto Sans (or another font of your choice)
     "--icons", "1",                       // Enable icons
     "--max-icon-size", "64",              // Max icon size in px
+    NULL /* terminate */,
+    
+    // Start the Polkit authentication agent
+    "/usr/libexec/polkit-mate-authentication-agent-1", NULL, // Polkit agent
+    
     NULL /* terminate */
 };
+
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
@@ -218,6 +224,14 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
 	{ MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
+	{ MODKEY,                    XKB_KEY_Down,       moveresizekb,   {.v = (int []){ 0, 40, 0, 0 }}},
+	{ MODKEY,                    XKB_KEY_Up,         moveresizekb,   {.v = (int []){ 0, -40, 0, 0 }}},
+	{ MODKEY,                    XKB_KEY_Right,      moveresizekb,   {.v = (int []){ 40, 0, 0, 0 }}},
+	{ MODKEY,                    XKB_KEY_Left,       moveresizekb,   {.v = (int []){ -40, 0, 0, 0 }}},
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Down,       moveresizekb,   {.v = (int []){ 0, 0, 0, 40 }}},
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Up,         moveresizekb,   {.v = (int []){ 0, 0, 0, -40 }}},
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Right,      moveresizekb,   {.v = (int []){ 0, 0, 40, 0 }}},
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Left,       moveresizekb,   {.v = (int []){ 0, 0, -40, 0 }}},
 	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright, tag,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_comma,      focusmon,       {.i = WLR_DIRECTION_LEFT} },
