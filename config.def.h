@@ -158,7 +158,20 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] = { "foot", "-c", HOME_DIR "/icede/foot.ini", NULL };
-static const char *menucmd[] = { "fuzzel", "--config", HOME_DIR "/icede/fuzzel.ini", NULL };
+static const char *menucmd[] = {
+    "wmenu-run",
+    "-b",                 // Display at the bottom of the screen
+    "-i",                 // Case-insensitive matching
+    "-p", "Run: ",        // Prompt text "Run: "
+    "-f", "Nerd 14",      // Use the "Nerd" font at size 14
+    "-N", "2E3440",       // Normal background color (Nord 0)
+    "-n", "D8DEE9",       // Normal foreground color (Nord 3)
+    "-M", "3B4252",       // Prompt background color (Nord 1)
+    "-m", "ECEFF4",       // Prompt foreground color (Nord 5)
+    "-S", "81A1C1",       // Selection background color (Nord 7)
+    "-s", "2E3440",       // Selection foreground color (Nord 0)
+    NULL
+};
 static const char *swaylockcmd[] = {
     "swaylock",
     "--color", "2e3440f8",        /* Background color with transparency (f8 = 97% opaque) */
