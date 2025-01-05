@@ -16,8 +16,8 @@ static const int topbar                    = 1; /* 0 means bottom bar */
 static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
-static const int vertpad                   = 10; /* vertical padding of bar */
-static const int sidepad                   = 10; /* horizontal padding of bar */
+static const int vertpad                   = 0; /* vertical padding of bar */
+static const int sidepad                   = 0; /* horizontal padding of bar */
 static const char *fonts[]                 = {"Hack Nerd Font Mono:size=16"};
 static const float rootcolor[]             = COLOR(0x000000ff);
 /* Fullscreen background (Nord Color) */
@@ -31,7 +31,7 @@ static uint32_t colors[][3] = {
 };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
-static char *tags[] = { "󰻽", "", "", "󰈹", "󰭹"};
+static char *tags[] = { "󰻽", "", "󰈹", "", "󰭹"};
 
 /* logging */
 static int log_level = WLR_ERROR;
@@ -212,8 +212,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
-	/* Below the layout should be set to 3 if we want monocle */
-	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
 	{ MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
